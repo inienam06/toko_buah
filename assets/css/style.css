@@ -1,0 +1,294 @@
+@font-face{
+    font-family: 'custom-font-regular';
+    src: url('../fonts/Montserrat-Regular.ttf');
+}
+
+@font-face{
+    font-family: 'custom-font-bold';
+    src: url('../fonts/Montserrat-Bold.ttf');
+}
+
+@font-face{
+    font-family: 'custom-font-medium';
+    src: url('../fonts/Montserrat-Medium.ttf');
+}
+
+div#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 9999;
+}
+
+div#preloader > div#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #9370DB;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+div#preloader > div#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #BA55D3;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+div#preloader > div#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FF00FF;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+
+div#preloader > p {
+    height: 100%;
+    text-align: center;
+    position: relative;
+    display: block;
+    top: 50%;
+    margin-top: 10px;
+}
+
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+html, body{
+    margin: 0 auto;
+    padding: 0;
+    font-family: 'custom-font-medium';
+}
+
+p, h1, h2, h3, h4, h5, h6, span, i.fa{
+    color: #777;
+}
+
+.color-secondary
+{
+    color: #ff7601;
+}
+
+.no-border, .form-control{
+    border-radius: 0px !important;
+}
+
+.wrapper, html, body{
+    background: #f8f8f8;
+}
+
+.body{
+    margin-top: 55px;
+}
+
+.muat-lebih{
+    font-size: 11px;
+}
+
+.navbar-default{
+    background-color: white;
+}
+
+.panel > .panel-heading{
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.thumbnail > img{
+    height: 170px;
+    width: -webkit-fill-available;
+}
+
+.thumbnail > .caption > a{
+    text-decoration: none;
+}
+
+.detail-produk .thumbnail > img{
+    height: 400px;
+}
+
+.detail-produk .judul{
+    font-size: 40px;
+    text-align: right;
+}
+
+.detail-produk .harga{
+    text-align: right;
+    color: #ff7601;
+    font-size: 30px;
+    font-family: custom-font-bold;
+}
+
+.detail-produk .action{
+    margin-top: 50px;
+}
+
+.detail-produk .action .align-right{
+    text-align: right;
+}
+
+.detail-produk .action .kurang, .detail-produk .action .jumlah, .detail-produk .action .tambah{
+    border: 1px solid #e7e7e7;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #777;
+    font-family: custom-font-bold;
+}
+
+.detail-produk .action .jumlah{
+    width: 50px;
+    text-align: center;
+}
+
+.detail-produk .action .perkiraan-harga{
+    font-size: 11px;
+    font-style: italic;
+    text-align: right;
+}
+
+.detail-produk .action .btn-custom-default{
+    margin-top: 20px;
+    min-width: 150px;
+    float: right;
+    font-family: custom-font-bold;
+}
+
+.harga{
+    font-size: 11px;
+    font-family: custom-font-bold;
+    color: #ff7601;
+}
+
+.with-shadow{
+    box-shadow: -1px 1px 1px 0px #e7e7e7;
+}
+
+.is-transition{
+    transition: all 0.2s ease-in-out;
+}
+
+.btn { 
+    text-transform: uppercase;
+    font-family: custom-font-bold;
+}
+
+.btn-default {
+    color: #777;
+    border: 1px solid #777;
+}
+
+.btn-default:hover, .btn-default:focus {
+    background-color: #777;
+    color: #fff;
+}
+
+.btn-custom-default{
+    border: 1px solid #ff7601;
+    color: #ff7601;
+    background-color: transparent;
+}
+
+.btn-custom-default:hover, .btn-custom-default:focus{
+    background-color: #ff7601;
+    color: white;
+}
+
+.detail-produk .dilihat i{
+    font-size: 20px;
+}
+
+.detail-produk .dilihat p{
+    margin: 0;
+    font-size: 10px;
+    font-family: custom-font-bold;
+}
+
+#masuk-daftar .modal-header {
+    padding: 0;
+}
+
+#masuk-daftar .modal-header .nav-tabs {
+    border-bottom: none;
+}
+
+#masuk-daftar .modal-header .nav li a {
+    padding: 15px 25px;
+    margin-right: 0px;
+}
+
+.detail-pesanan .detail-item
+{
+    padding: 20px;
+}
+
+.detail-pesanan .detail-item .judul
+{
+    margin: 0;
+    font-size: 20px;
+}
+
+.detail-pesanan .detail-item .judul a:hover, .detail-pesanan .detail-item .judul a:focus
+{
+    text-decoration: none;
+}
+
+.detail-pesanan .detail-item .harga
+{
+    margin: 0;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #ff7601;
+    font-family: custom-font-bold;
+}
+
+.detail-pesanan .detail-item .status
+{
+    margin-top: 5%;
+    font-size: 9px;
+}
