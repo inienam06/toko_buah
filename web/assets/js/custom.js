@@ -1,4 +1,4 @@
-var base_url = 'http://localhost/project/toko_buah/';
+var base_url = 'http://localhost/project/toko_buah/web/';
 var base_url_api = base_url+'api/';
 var base_url_dashboard = base_url+'dasboard/';
 

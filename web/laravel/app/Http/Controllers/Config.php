@@ -12,8 +12,12 @@ class Config extends Controller
     private static $CIPHER_KEY_LEN = 16; //128 bits
     private static $dataIvKey = "abdulrohman";
 
-    private $url = 'http://localhost/project/toko_buah/api/';
+    private $url;
     private $apikey = '3NbeKqHdqRCsxL+i+HlsKA==:YWJkdWxyb2htYW4wMDAwMA==';
+
+    public function __construct() {
+        $this->url = url('api').'/';
+    }
 
     public static function encrypt($data) {
         if (strlen(Config::$dataIvKey) < Config::$CIPHER_KEY_LEN) {
@@ -135,7 +139,7 @@ class Config extends Controller
         curl_close($curl);
 
         if ($err) {
-            return "cURL Error #:" . $err;
+            return "cURL Error #: ". $err;
         } else {
             return json_decode($response);
         }
