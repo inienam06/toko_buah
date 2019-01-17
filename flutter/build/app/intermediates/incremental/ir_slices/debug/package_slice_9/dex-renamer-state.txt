@@ -1,0 +1,4 @@
+#Sat Jan 12 01:09:09 ICT 2019
+base.0=E\:\\Project\\Android\\toko_buah\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\9
+path.0=classes.dex
+renamed.0=classes.dex
