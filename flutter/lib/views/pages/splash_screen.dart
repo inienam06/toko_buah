@@ -26,7 +26,7 @@ class initState extends State<SplashScreen> {
   }
 
   void initSplash(BuildContext ctx) {
-    session = new Session(ctx);
+    session = new Session();
 
     session.getIsLogin().then((bool value){
       Timer(Duration(milliseconds: 2000), (){

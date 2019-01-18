@@ -1,8 +1,8 @@
-import 'dart:async';
 import 'dart:ui';
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:toko_buah/data/api.dart';
+import 'package:toko_buah/data/session.dart';
+import 'package:toko_buah/data/system.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -15,6 +15,8 @@ class Login extends StatefulWidget {
 class LoginState extends State<Login> {
   BuildContext context;
   API api;
+  Session session;
+  System system;
 
   bool isLoading = false;
   final formKey = new GlobalKey<FormState>();
@@ -28,7 +30,7 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     this.context = context;
-    api = new API();
+    onReady();
 
     var btnLogin = new MaterialButton(
       child: new Text("Masuk"),
@@ -100,6 +102,18 @@ class LoginState extends State<Login> {
     );
   }
 
+  void onReady() {
+    api = new API();
+    session = new Session();
+    system = new System();
+
+    session.getIsLogin().then((bool isLogin) {
+      if(isLogin) {
+        system.nextPage(this.context, '/home');
+      }
+    });
+  }
+
   void doLogin() {
     final form  = formKey.currentState;
 
@@ -115,33 +129,34 @@ class LoginState extends State<Login> {
     }
   }
 
-  @override
   void onLoginError(String s) {
     alert(s);
     setState(() => isLoading = false);
   }
 
-  @override 
+  void onLogin() {
+    setState(() => isLoading = true);
+  }
+
   void onLoginSuccess(String s) {
     alert(s);
     setState(() => isLoading = false);
+    system.nextPage(this.context, '/home');
   }
 
   void loading(int code) {
-    setState(() {
-      switch (code) {
-        case 0:
-          isLoading = false;
-          break;
+    switch (code) {
+      case 0:
+        setState(() => isLoading = false);
+        break;
 
-        case 1:
-          isLoading = true; 
-          break;
+      case 1:
+        setState(() => isLoading = true);
+        break;
 
-        default:
-          isLoading = false;
-          break;
-      }
-    });
+      default:
+        setState(() => isLoading = false);
+        break;
+    }
   }
 }

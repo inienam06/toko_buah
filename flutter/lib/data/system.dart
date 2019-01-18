@@ -1,4 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:toko_buah/data/api.dart';
 
 class System {
@@ -35,5 +37,18 @@ class System {
 
       api.updateFirebase(body);
     });
+  }
+
+  void nextPage(BuildContext context, String page) {
+    Navigator.of(context).pushReplacementNamed(page);
+  }
+
+  void alert(BuildContext context, String value) {
+    final scaffoldKey = new GlobalKey<ScaffoldState>();
+    scaffoldKey.currentState.showSnackBar(
+      new SnackBar(
+        content: new Text(value)
+      )
+    );
   }
 }

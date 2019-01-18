@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\Project\\Android\\toko_buah\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zh-rTW\\values-zh-rTW.xml",
+            "outputFile": "C:\\xampp\\htdocs\\project\\toko_buah\\flutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-zh-rTW\\values-zh-rTW.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Bancet\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\4566580128aea334754ae8be5b36a3cc\\res\\values-zh-rTW\\values-zh-rTW.xml",

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\Project\\Android\\toko_buah\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-el\\values-el.xml",
+            "outputFile": "C:\\xampp\\htdocs\\project\\toko_buah\\flutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-el\\values-el.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Bancet\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.0.1.aar\\bb72f3a947b0558ea027a6a19c7b7fc8\\res\\values-el\\values.xml",

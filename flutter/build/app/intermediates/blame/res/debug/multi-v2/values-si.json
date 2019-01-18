@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\Project\\Android\\toko_buah\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-si\\values-si.xml",
+            "outputFile": "C:\\xampp\\htdocs\\project\\toko_buah\\flutter\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-si\\values-si.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Bancet\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-16.0.1.aar\\9bb1cf64ac9efb5d080859f1eb22fe8d\\res\\values-si\\values.xml",
