@@ -18,6 +18,6 @@ class KategoriController extends Controller
         $res['message'] = 'Kategori '.$judul;
         $res['data'] = Kategori::with('produk')->where('slug', $judul)->first();
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
     }
 }

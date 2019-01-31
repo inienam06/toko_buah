@@ -28,7 +28,7 @@ class TemplateController extends Controller
         $res['message'] = 'Data Beranda';
         $res['data'] = $data;
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
     }
 
     function kategori()
@@ -38,7 +38,7 @@ class TemplateController extends Controller
         $res['message'] = 'Kategori produk';
         $res['data'] = Kategori::select('nama_kategori', 'slug')->orderBy('nama_kategori', 'ASC')->get();
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
     }
 
     function daftar(Request $req)
@@ -82,6 +82,6 @@ class TemplateController extends Controller
             $res['data'] = $u;
         }
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
     }
 }

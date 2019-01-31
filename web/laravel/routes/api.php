@@ -34,6 +34,8 @@ Route::group(['middleware' => 'hasApiKey'], function() {
             Route::post('pesan', 'Api\PesananController@pesan');
 
             Route::get('semua/{id}', 'Api\PesananController@semua_pesanan');
+            
+            Route::get('{status}/{id}', 'Api\PesananController@pesanan_status');
 
             Route::get('{id}/{id_pesanan}', 'Api\PesananController@detail_pesanan');
         });

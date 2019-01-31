@@ -32,6 +32,6 @@ class AkunController extends Controller
             $res['message'] = 'Firebase telah diperbarui';
         }
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
     }
 }

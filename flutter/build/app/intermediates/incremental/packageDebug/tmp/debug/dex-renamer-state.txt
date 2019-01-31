@@ -1,4 +1,0 @@
-#Sun Jan 20 02:49:57 ICT 2019
-base.0=C\:\\xampp\\htdocs\\project\\toko_buah\\flutter\\build\\app\\intermediates\\transforms\\dexMerger\\debug\\0
-path.0=classes.dex
-renamed.0=classes.dex

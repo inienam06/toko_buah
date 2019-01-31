@@ -29,6 +29,6 @@ class ProdukController extends Controller
             $res['data'] = $produk;
         }
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
     }
 }

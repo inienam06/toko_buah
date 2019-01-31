@@ -19,7 +19,7 @@ class PesananController extends Controller
 
     function pesan(Request $req)
     {
-        if(Pesanan::where(['id_user' => $req->id_user, 'id_produk' => $req->id_produk])->count() > 0)
+        if(Pesanan::where(['id_user' => $req->id_user, 'id_produk' => $req->id_produk])->count()> 0)
         {
             $pesanan = Pesanan::where(['id_user' => $req->id_user, 'id_produk' => $req->id_produk])->first();
 
@@ -40,14 +40,14 @@ class PesananController extends Controller
         $res['code'] = 200;
         $res['message'] = 'Pesanan berhasil ditambahkan, Silahkan cek pesanan anda';
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
     }
 
     function semua_pesanan($id)
     {
-        $pesanan = Pesanan::where('id_user', $id);
+        $pesanan = Pesanan::where('id_user', $id)->whereNotIn('status', [3]);
 
-        if(count($pesanan) < 1)
+        if($pesanan->count() < 1)
         {
             $res['status'] = false;
             $res['code'] = 404;
@@ -62,14 +62,36 @@ class PesananController extends Controller
             $res['data'] = $pesanan->with('produk')->get();
         }
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
+    }
+
+    function pesanan_status($status, $id)
+    {
+        $pesanan = Pesanan::where(['id_user' => $id, 'status' => $status]);
+
+        if($pesanan->count() < 1)
+        {
+            $res['status'] = false;
+            $res['code'] = 404;
+            $res['message'] = 'Pesanan tidak ditemukan !';
+            $res['data'] = array();
+        }
+        else
+        {
+            $res['status'] = true;
+            $res['code'] = 200;
+            $res['message'] = 'Pesanan anda';
+            $res['data'] = $pesanan->with('produk')->get();
+        }
+
+        return response()->json($res);
     }
 
     function detail_pesanan($id, $id_pesanan)
     {
         $pesanan = Pesanan::where(['id_user' => $id, 'id_pesanan' => $id_pesanan]);
 
-        if(count($pesanan) < 1)
+        if($pesanan->count() < 1)
         {
             $res['status'] = false;
             $res['code'] = 404;
@@ -84,6 +106,6 @@ class PesananController extends Controller
             $res['data'] = $pesanan->with('produk')->get();
         }
 
-        return response()->json($res, $res['code']);
+        return response()->json($res);
     }
 }
