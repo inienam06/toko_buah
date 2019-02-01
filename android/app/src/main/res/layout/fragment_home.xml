@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:fillViewport="true">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/grey">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            tools:ignore="UselessParent"
+            android:id="@+id/rlTerpopuler"
+            android:background="@color/white">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/terpopuler"
+                android:textStyle="bold"
+                android:id="@+id/tvTerpopuler"
+                android:textColor="@color/greyDark"
+                android:layout_below="@id/tvTerpopuler"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvTerpopuler"
+                android:layout_below="@id/tvTerpopuler"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginTop="10dp"
+            tools:ignore="UselessParent"
+            android:id="@+id/rlTerbaru"
+            android:layout_below="@id/rlTerpopuler"
+            android:background="@color/white">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/terbaru"
+                android:textStyle="bold"
+                android:id="@+id/tvTerbaru"
+                android:textColor="@color/greyDark"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rvTerbaru"
+                android:layout_below="@id/tvTerbaru"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

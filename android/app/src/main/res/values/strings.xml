@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Lestari Buah</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="email_pattern">[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z._-]+</string>
+    <string name="channel_id">com.abdulr.lestaribuah</string>
+    <string name="channel_name">Toko Buah</string>
+    <string name="pelase_wait">Pelase Wait ...</string>
+    <string name="connection_not_available">Connection Error, Please check the network and try again later</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="masuk">Masuk</string>
+    <string name="server_problem">Server problem, please try again later !</string>
+    <string name="terpopuler">Terpopuler</string>
+    <string name="nama_produk">Nama Produk</string>
+    <string name="nol">0</string>
+    <string name="lihat_detail">Lihat Detail >></string>
+    <string name="terbaru">Terbaru</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_result_found">Tidak Ada Data</string>
+    <string name="date">Tanggal</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="Search">Search</string>
+    <string name="edit">Ubah</string>
+</resources>
