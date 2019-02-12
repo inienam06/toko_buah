@@ -76,10 +76,20 @@ class TemplateController extends Controller
 
             $u->update(['api_token' => base64_encode(str_random(50))]);
 
-            $res['status'] = true;
-            $res['code'] = 200;
-            $res['message'] = 'User ditemukan';
-            $res['data'] = $u;
+            if($u->verified == 0) 
+            {
+                $res['status'] = true;
+                $res['code'] = 403;
+                $res['message'] = 'User belum terverifikasi';
+                $res['data'] = $u;
+            }
+            else
+            {
+                $res['status'] = true;
+                $res['code'] = 200;
+                $res['message'] = 'User ditemukan';
+                $res['data'] = $u;
+            }
         }
 
         return response()->json($res);

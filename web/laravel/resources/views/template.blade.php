@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
+    {{-- UIKIT --}}
+    <link href="{{ asset('assets/libraries/uikit/css/uikit.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/libraries/uikit/less/uikit.theme.less') }}" rel="stylesheet/less" type="text/css">
     {{-- Bootstrap CORE --}}
     <link href="{{ asset('assets/libraries/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libraries/timepicker/bootstrap-timepicker.min.css') }}" rel="stylesheet">
@@ -37,126 +40,20 @@
   </div>
 
   <div class="wrapper">
-      <nav class="navbar navbar-default navbar-fixed-top no-border">
-          <div class="container-fluid">
-            {{-- Brand and toggle get grouped for better mobile display --}}
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-            </div>
-        
-            {{-- Collect the nav links, forms, and other content for toggling --}}
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li><a href="{{ route('template') }}">Beranda</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Kategori <span class="caret"></span></a>
-                    <ul class="dropdown-menu no-border dropdown-kategori">
-                    </ul>
-                  </li>
-              </ul>
-
-              <ul class="nav navbar-nav navbar-right">
-                @if (!empty(Session::get('is_loginUser')) || Session::get('is_loginUser') == 1)
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Session::get('nama_user') }} <span class="caret"></span></a>
-                    <ul class="dropdown-menu no-border">
-                      <li><a href="#">Profil</a></li>
-                      <li><a href="#">Ubah Password</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="{{ route('pesanan') }}">Pesanan</a></li>
-                      <li role="separator" class="divider"></li>
-                      <li><a href="{{ route('keluar') }}">Keluar</a></li>
-                    </ul>
-                  </li>
-                @else
-                  <li><a href="javascript:void(0)" data-toggle="modal" data-target="#masuk-daftar">Masuk / Daftar</a></li>
-                @endif
-              </ul>
-            </div>{{-- /.navbar-collapse --}}
-          </div>{{-- /.container-fluid --}}
-      </nav>
+      @include('navbar')
 
       <div class="container body">
           @yield('content')
       </div>
-
-      <div class="modal fade" id="masuk-daftar" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-sm" role="document">
-          <div class="modal-content no-border">
-            <div class="modal-header">
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs" role="tablist">
-                  <li role="presentation" class="active"><a href="#masuk-form" class="no-border" aria-controls="masuk-form" role="tab" data-toggle="tab">MASUK</a></li>
-                  <li role="presentation"><a href="#daftar-form" class="no-border" aria-controls="daftar-form" role="tab" data-toggle="tab">DAFTAR</a></li>
-              </ul>
-            </div>
-            <div class="modal-body">
-              <!-- Tab panes -->
-              <div class="tab-content">
-                  <div role="tabpanel" class="tab-pane active" id="masuk-form">
-                    {!! Form::open(['method' => 'POST', 'route' => 'masuk']) !!}
-                      <div class="form-group">
-                        {!! Form::email('email', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Masukkan E-mail Anda']) !!}
-                      </div>
-
-                      <div class="form-group">
-                        {!! Form::password('password', ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Masukkan Password Anda']) !!}
-                      </div>
-
-                      <div class="form-group row">
-                        <div class="col-md-4">
-                          <button class="btn btn-custom-default is-transition no-border" id="masuk">MASUK</button>
-                        </div>
-
-                        <div class="col-md-4 pull-right">
-                            <button class="btn btn-default is-transition no-border" id="batal" data-dismiss="modal">Batal</button>
-                          </div>
-                      </div>
-                    {!! FOrm::close() !!}
-                  </div>
-
-                  <div role="tabpanel" class="tab-pane" id="daftar-form">
-                    <div class="form-group">
-                      {!! Form::text('nama', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Masukkan Nama Anda']) !!}
-                    </div>
-
-                    <div class="form-group">
-                      {!! Form::email('email', null, ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Masukkan E-mail Anda']) !!}
-                    </div>
-
-                    <div class="form-group">
-                      {!! Form::text('no_handphone', null, ['class' => 'form-control is_nohp', 'autocomplete' => 'off', 'required', 'placeholder' => 'Masukkan No Handphone Anda']) !!}
-                    </div>
-
-                    <div class="form-group">
-                      {!! Form::password('password', ['class' => 'form-control', 'autocomplete' => 'off', 'required', 'placeholder' => 'Masukkan Password Anda']) !!}
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-md-4">
-                        <button class="btn btn-custom-default is-transition no-border" id="daftar">Daftar</button>
-                      </div>
-
-                      <div class="col-md-4 pull-right">
-                          <button class="btn btn-default is-transition no-border" id="batal" data-dismiss="modal">Batal</button>
-                        </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-      </div><!-- /.modal -->
     </div>
     
     {{-- jQuery --}}
     <script src="{{ asset('assets/libraries/jquery/jquery.min.js') }}"></script>
+    {{-- UIKIT --}}
+    <script src="{{ asset('assets/libraries/uikit/js/uikit.min.js') }}"></script>
+    <script src="{{ asset('assets/libraries/uikit/js/uikit-icons.min.js') }}"></script>
     {{-- Bootstrap Core JavaScript --}}
+    <script src="{{ asset('assets/libraries/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/libraries/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/libraries/timepicker/bootstrap-timepicker.min.js') }}"></script>
     <script src="{{ asset('assets/libraries/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>

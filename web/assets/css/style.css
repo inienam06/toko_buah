@@ -132,8 +132,8 @@ p, h1, h2, h3, h4, h5, h6, span, i.fa{
     font-size: 11px;
 }
 
-.navbar-default{
-    background-color: white;
+.custom-nav {
+    box-shadow: 0 0 12px 0 #c7c7c77a;
 }
 
 .panel > .panel-heading{

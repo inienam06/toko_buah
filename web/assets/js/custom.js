@@ -1,4 +1,4 @@
-var base_url = 'http://localhost/project/toko_buah/web/';
+var base_url = 'http://192.168.43.29/project/lestari_buah/web/';
 var base_url_api = base_url+'api/';
 var base_url_dashboard = base_url+'dasboard/';
 

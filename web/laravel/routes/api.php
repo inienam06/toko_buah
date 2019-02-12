@@ -18,11 +18,6 @@ Route::group(['middleware' => 'hasApiKey'], function() {
         Route::post('masuk', 'Api\TemplateController@masuk');
     });
 
-    Route::group(['prefix' => 'admin'], function(){
-        Route::post('daftar', 'Api\Dashboard\LoginRegisterController@daftar');
-        Route::post('masuk', 'Api\Dashboard\LoginRegisterController@masuk');
-    });
-
     Route::get('kategori', 'Api\TemplateController@kategori');
 
     Route::get('produk/{title}', 'Api\ProdukController@produk_detail');
@@ -43,6 +38,11 @@ Route::group(['middleware' => 'hasApiKey'], function() {
 
 
     //DASHBOARD
+    Route::group(['prefix' => 'admin'], function(){
+        Route::post('daftar', 'Api\Dashboard\LoginRegisterController@daftar');
+        Route::post('masuk', 'Api\Dashboard\LoginRegisterController@masuk');
+    });
+
     Route::group(['prefix' => 'admin', 'middleware' => 'hasAuthAdmin'], function() {
         Route::group(['prefix' => 'profil/{id}'], function() {
             Route::get('/', 'Api\Dashboard\ProfilController@profil');
