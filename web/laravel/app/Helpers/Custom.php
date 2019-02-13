@@ -3,6 +3,9 @@
 use App\Admin;
 use App\User;
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 function getBaseUrlApi()
 {
     return url('api').'/';
@@ -214,4 +217,40 @@ function sentDataToUri($uri, $auth, $fields)
     }
 
     return $res;
+}
+
+function sending_mail($to, $title, $message) {
+    $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+    try {
+        //Server settings
+        //$mail->SMTPDebug = 2;                                 // Enable verbose debug output
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'jessie.id.rapidplex.com';  // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'admin@abdulr.id';                 // SMTP username
+        $mail->Password = 'abdulr181199';                           // SMTP password
+        $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 465;                                    // TCP port to connect to
+
+        //Recipients
+        $mail->setFrom('adminbuah@abdulr.id', 'Admin Lestari Buah');
+        $mail->addAddress($to);
+
+        //Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $title;
+        $mail->Body    = $message;
+
+        $mail->send();
+        
+        $res['status'] = true;
+        $res['code'] = 200;
+        $res['message'] = 'E-mail has been sent';
+    } catch (Exception $e) {
+        $res['status'] = false;
+        $res['code'] = 500;
+        $res['message'] = 'E-mail not sent';
+    }
+
+    return response()->json($res);
 }

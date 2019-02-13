@@ -78,9 +78,14 @@ class TemplateController extends Controller
 
             if($u->verified == 0) 
             {
+                $code = int_random(5);
+
+                $u->update(['token_verify' => $code]);
+
                 $res['status'] = true;
                 $res['code'] = 403;
                 $res['message'] = 'User belum terverifikasi';
+                $res['mail'] = sending_mail($req->email, 'Code Verification', 'Your code verification : <b>'.$code.'</b>')->getData();
                 $res['data'] = $u;
             }
             else
