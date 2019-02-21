@@ -14,8 +14,8 @@ Route::group(['middleware' => 'hasApiKey'], function() {
     Route::get('beranda', 'Api\TemplateController@index');
 
     Route::group(['prefix' => 'user'], function(){
-        Route::post('daftar', 'Api\TemplateController@daftar');
-        Route::post('masuk', 'Api\TemplateController@masuk');
+        Route::post('daftar', 'Api\AkunController@daftar');
+        Route::post('masuk', 'Api\AkunController@masuk');
     });
 
     Route::get('kategori', 'Api\TemplateController@kategori');
@@ -25,6 +25,8 @@ Route::group(['middleware' => 'hasApiKey'], function() {
 
     Route::group(['middleware' => 'hasAuthUser'], function(){
         Route::post('update-firebase', 'Api\AkunController@update_firebase');
+        Route::post('get-code-confirmation', 'Api\AkunController@get_code_confirmation');
+        
         Route::group(['prefix' => 'pesanan'], function(){
             Route::post('pesan', 'Api\PesananController@pesan');
 

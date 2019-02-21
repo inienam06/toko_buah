@@ -13,6 +13,7 @@ public class Session {
     private static final String token = "";
     private static final String tokenFirebase = "";
     private static final Boolean isLogin = false;
+    private static final int verified = 0;
     private SharedPreferences sp;
     private SharedPreferences.Editor spEditor;
 
@@ -58,13 +59,19 @@ public class Session {
         spEditor.commit();
     }
 
-    public void login(int id, String nama, String email, String noHp, String token, String tokenFirebase) {
+    public void setVerified (int value) {
+        spEditor.putInt("verified", value);
+        spEditor.commit();
+    }
+
+    public void login(int id, String nama, String email, String noHp, String token, String tokenFirebase, int verified) {
         spEditor.putInt("id", id);
         spEditor.putString("nama", nama);
         spEditor.putString("email", email);
         spEditor.putString("noHp", noHp);
         spEditor.putString("token", token);
         spEditor.putString("tokenFirebase", tokenFirebase);
+        spEditor.putInt("verified", verified);
         spEditor.putBoolean("isLogin", true);
         spEditor.commit();
     }
@@ -100,6 +107,10 @@ public class Session {
         return sp.getBoolean("isLogin", isLogin);
     }
 
+    public int getVerified() {
+        return sp.getInt("verified", verified);
+    }
+
     public void logout() {
         spEditor.putInt("id", id);
         spEditor.putString("nama", nama);
@@ -107,6 +118,7 @@ public class Session {
         spEditor.putString("noHp", noHp);
         spEditor.putString("token", token);
         spEditor.putString("tokenFirebase", tokenFirebase);
+        spEditor.putInt("verified", verified);
         spEditor.putBoolean("isLogin", isLogin);
         spEditor.commit();
     }

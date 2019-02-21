@@ -26,23 +26,41 @@
             android:id="@+id/atPassword"
             android:inputType="textPassword"/>
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/atPassword"
-            android:background="@color/colorPrimary"
-            android:elevation="3dp"
-            android:text="@string/masuk"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            tools:ignore="UnusedAttribute"
-            android:id="@+id/btnLogin"/>
-            <!--android:foreground="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            tools:ignore="UnusedAttribute"-->
+            android:orientation="horizontal"
+            android:gravity="center">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:elevation="3dp"
+                android:text="@string/masuk"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                tools:ignore="UnusedAttribute"
+                android:id="@+id/btnLogin"
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorSecondary"
+                android:elevation="3dp"
+                android:text="@string/daftar"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                tools:ignore="UnusedAttribute"
+                android:id="@+id/btnRegister"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

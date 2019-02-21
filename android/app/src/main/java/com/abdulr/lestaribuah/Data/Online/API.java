@@ -12,6 +12,7 @@ import com.abdulr.lestaribuah.Fragment.InOrderTabFragment;
 import com.abdulr.lestaribuah.Fragment.WaitingTabFragment;
 import com.abdulr.lestaribuah.R;
 import com.abdulr.lestaribuah.Views.Home.MainActivity;
+import com.abdulr.lestaribuah.Views.LoginRegister.EmailConfirmationActivity;
 import com.abdulr.lestaribuah.Views.LoginRegister.LoginActivity;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -33,7 +34,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class API {
-    private static final String base_url = "http://192.168.43.29/project/toko_buah/web/";
+    private static final String base_url = "http://192.168.43.29/project/lestari_buah/web/";
     private static final String base_url_api = base_url + "api/";
     private static final String apikey = "3NbeKqHdqRCsxL+i+HlsKA==:YWJkdWxyb2htYW4wMDAwMA==";
     private static final String server_key_firebase = "AAAAMPn6pVs:APA91bFMR8J6mwCKy3wuTSJkbEuH7Pp0eLJAsJvEvdm1Wd-zhhhHcIZsBluVuAYqbv7HCXxQT7jMBlVYwmeltq6yOXenBBIbmyNVS_LqXNWmklr4BJqOAWBeEOBu0Ps7GDK8bmNKsnxP";
@@ -44,58 +45,52 @@ public class API {
         return base_url;
     }
 
-    public void sending_notif(Activity activity, final String title, final String body) {
+    public void sending_notif(Activity activity, final String token, final String title, final String body) {
         final String url = "https://fcm.googleapis.com/fcm/send";
         queue = Volley.newRequestQueue(activity);
         final JSONObject pos = new JSONObject();
         final JSONObject data = new JSONObject();
         final String auth = "key="+server_key_firebase;
 
+        try {
+            data.put("title", title);
+            data.put("body", body);
 
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(activity, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                try {
-                    data.put("title", title);
-                    data.put("body", body);
+            pos.put("to", token);
+            pos.put("notification", data);
 
-                    pos.put("to", instanceIdResult.getToken());
-                    pos.put("notification", data);
+            Log.d("param", pos.toString());
 
-                    Log.d("param", pos.toString());
-
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, pos, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            Log.d("Response", String.valueOf(response));
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("error notif", error.toString());
-                        }
-                    }) {
-                        @Override
-                        public Map<String, String> getHeaders() throws AuthFailureError {
-                            Map headers = new HashMap();
-                            headers.put("Authorization", auth);
-                            headers.put("Content-Type", "application/json");
-                            return headers;
-                        }
-                    };
-                    jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
-                    queue.add(jsonObjectRequest);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, pos, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("Response", String.valueOf(response));
                 }
-            }
-        });
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("error notif", error.toString());
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map headers = new HashMap();
+                    headers.put("Authorization", auth);
+                    headers.put("Content-Type", "application/json");
+                    return headers;
+                }
+            };
+            jsonObjectRequest.setRetryPolicy(new DefaultRetryPolicy(60000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            queue.add(jsonObjectRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     //ENDGLOBAL
 
     //ACCOUNT
-    public void login(final LoginActivity activity, final JSONObject obj) {
+    public void login(final LoginActivity activity, final JSONObject obj, final String firebase) {
         String url = base_url_api + "user/masuk";
         queue = Volley.newRequestQueue(activity);
 
@@ -110,7 +105,7 @@ public class API {
                 JSONObject param = new JSONObject();
 
                 try {
-                    if(response.getInt("code") == 200) {
+                    if(response.getBoolean("status")) {
                         JSONObject data = response.getJSONObject("data");
 
                         int id = data.getInt("id_user");
@@ -119,10 +114,17 @@ public class API {
                         String noHp = data.getString("no_handphone");
                         String token = data.getString("api_token");
                         String tokenFirebase = data.getString("token_firebase");
+                        int verified = data.getInt("verified");
 
-                        activity.session.login(id, nama, email, noHp, token, tokenFirebase);
+                        activity.session.login(id, nama, email, noHp, token, tokenFirebase, verified);
 
-                        activity.startActivity(activity.config.goIntent(MainActivity.class,0,null,null));
+                        update_firebase(activity, id, firebase, token);
+
+                        if(response.getInt("code") == 200) {
+                            activity.startActivity(activity.config.goIntent(MainActivity.class,0,null,null));
+                        } else {
+                            activity.startActivity(activity.config.goIntent(EmailConfirmationActivity.class,0,null,null));
+                        }
                     } else {
                         Toast.makeText(activity, response.getString("message"), Toast.LENGTH_SHORT).show();
                     }
@@ -156,22 +158,32 @@ public class API {
         queue.add(req);
     }
 
-    public void update_firebase(final MainActivity activity, final JSONObject obj) {
-        String url = base_url_api + "update-firebase";
+    public void register(final LoginActivity activity, final JSONObject obj, final String firebase) {
+        String url = base_url_api + "user/daftar";
         queue = Volley.newRequestQueue(activity);
 
-        Log.d("param firebase", obj.toString());
+        activity.config.loading(1);
+
+        Log.d("param login", obj.toString());
 
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, obj, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("response firebase", response.toString());
+                Log.d("response login", response.toString());
+                JSONObject param = new JSONObject();
 
                 try {
-                    activity.session.setTokenFirebase(obj.getString("token"));
+                    if(response.getBoolean("status")) {
+                        login(activity, obj, firebase);
+                    } else {
+                        Toast.makeText(activity, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(activity, activity.getString(R.string.server_problem), Toast.LENGTH_SHORT).show();
                 }
+
+                activity.config.loading(0);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -179,13 +191,13 @@ public class API {
                 Log.d("error firebase", error.toString());
 
                 Toast.makeText(activity, activity.getString(R.string.server_problem), Toast.LENGTH_SHORT).show();
+                activity.config.loading(0);
             }
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map headers = new HashMap();
                 headers.put("apikey", apikey);
-                headers.put("Authorization", "Bearer " + activity.session.getToken());
                 headers.put("Content-Type", "application/json");
                 return headers;
             }
@@ -194,6 +206,91 @@ public class API {
         req.setRetryPolicy(new DefaultRetryPolicy(60000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         queue.add(req);
+    }
+
+    public void update_firebase(final Activity activity, final int id_user, final String token, final String auth) {
+        String url = base_url_api + "update-firebase";
+        queue = Volley.newRequestQueue(activity);
+        JSONObject obj = new JSONObject();
+
+        try {
+            obj.put("id_user", id_user);
+            obj.put("token", token);
+
+            Log.d("param firebase", obj.toString());
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, obj, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("response firebase", response.toString());
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error firebase", error.toString());
+
+                    Toast.makeText(activity, activity.getString(R.string.server_problem), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map headers = new HashMap();
+                    headers.put("apikey", apikey);
+                    headers.put("Authorization", "Bearer " + auth);
+                    headers.put("Content-Type", "application/json");
+                    return headers;
+                }
+            };
+
+            req.setRetryPolicy(new DefaultRetryPolicy(60000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            queue.add(req);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void get_code_confirmation(final MainActivity activity, final int id_user, final String auth) {
+        String url = base_url_api + "get-code-confirmation";
+        queue = Volley.newRequestQueue(activity);
+        JSONObject obj = new JSONObject();
+
+        try {
+            obj.put("id_user", id_user);
+
+            Log.d("param code confirmation", obj.toString());
+
+            JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, obj, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("response confirmation", response.toString());
+
+                    activity.config.goIntent(EmailConfirmationActivity.class, 0,null, null);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error confirmation", error.toString());
+
+                    Toast.makeText(activity, activity.getString(R.string.server_problem), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map headers = new HashMap();
+                    headers.put("apikey", apikey);
+                    headers.put("Authorization", "Bearer " + auth);
+                    headers.put("Content-Type", "application/json");
+                    return headers;
+                }
+            };
+
+            req.setRetryPolicy(new DefaultRetryPolicy(60000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            queue.add(req);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
     //ENDACCOUNT
 

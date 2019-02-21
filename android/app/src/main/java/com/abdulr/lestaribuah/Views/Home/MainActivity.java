@@ -32,6 +32,7 @@ import com.abdulr.lestaribuah.Fragment.HistoryFragment;
 import com.abdulr.lestaribuah.Fragment.HomeFragment;
 import com.abdulr.lestaribuah.Fragment.OrderFragment;
 import com.abdulr.lestaribuah.R;
+import com.abdulr.lestaribuah.Views.LoginRegister.EmailConfirmationActivity;
 import com.abdulr.lestaribuah.Views.LoginRegister.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -77,23 +78,9 @@ public class MainActivity extends AppCompatActivity
 
             navigationView.inflateMenu(R.menu.menu_drawer_before_login);
         } else {
-            final JSONObject obj = new JSONObject();
-            config.loading(1);
-            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-                @Override
-                public void onSuccess(InstanceIdResult instanceIdResult) {
-                    try {
-                        obj.put("id_user", session.getId());
-                        obj.put("token", instanceIdResult.getToken());
-
-                        api.update_firebase(MainActivity.this, obj);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    config.loading(0);
-                }
-            });
+            if(session.getVerified() == 0) {
+                api.get_code_confirmation(this, session.getId(), session.getToken());
+            }
         }
 
         navigationView.setNavigationItemSelectedListener(this);

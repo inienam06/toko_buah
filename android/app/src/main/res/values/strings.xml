@@ -28,4 +28,6 @@
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="Search">Search</string>
     <string name="edit">Ubah</string>
+    <string name="daftar">Daftar</string>
+    <string name="fullname">Nama Lengkap</string>
 </resources>

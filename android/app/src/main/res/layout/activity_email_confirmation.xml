@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Views.LoginRegister.EmailConfirmationActivity"
+    android:padding="20dp">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kode konfirmasi"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        android:textColor="@color/colorSecondary"
+        android:textStyle="bold"
+        android:id="@+id/etCode"
+        android:inputType="number"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etCode"
+        android:id="@+id/btnConfirm"
+        android:text="Konfirmasi"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        tools:ignore="UnusedAttribute" />
+</RelativeLayout>
